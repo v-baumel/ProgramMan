@@ -5,7 +5,7 @@ import Constants as C
 class Jogador(Personagem.Personagem):
     def __init__(self, x, y, mapa):
         super().__init__(x, y, mapa)
-        self.image.fill(C.YELLOW)  # Already set in Personagem, but ensure
+        self.image.fill(C.YELLOW) 
 
     def handle_input(self):
         keys = pygame.key.get_pressed()
