@@ -1,0 +1,2 @@
+import Mapa
+map =  Mapa()
