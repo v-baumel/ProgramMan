@@ -1,11 +1,12 @@
 import pygame
 import Personagem
-import Constants as C
+import Constantes as C
 
 class Jogador(Personagem.Personagem):
     def __init__(self, x, y, mapa):
         super().__init__(x, y, mapa)
-        self.image.fill(C.YELLOW) 
+        self.speed = 2
+        self.image.fill(C.BLUE) 
 
     def handle_input(self):
         keys = pygame.key.get_pressed()

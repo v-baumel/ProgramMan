@@ -1,6 +1,6 @@
 import pygame
 pygame.init()
-import Constants as C
+import Constantes as C
 import Mapa
 import Jogador
 

@@ -1,5 +1,5 @@
 import pygame
-import Constants as C
+import Constantes as C
 TILE_SIZE = C.TILE_SIZE
 print(TILE_SIZE)
 
