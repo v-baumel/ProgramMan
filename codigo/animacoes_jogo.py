@@ -11,7 +11,7 @@ class AnimationSystem: #classe da parte de animações
         self.animation_frame+=self.animation_speed
         self.blink_timer+=1
     
-    def desenhar_estudante_sem_poder(self, tela, x, y, direcao, tamanho=30): #estudante normal 
+    def desenhar_estudante_sem_poder(self, tela, x, y, direcao, tamanho): #estudante normal 
         cor_da_pele=(255, 220, 177)
         cor_da_camisa=(50,100, 200)
         cor_da_calça=(40,40,80)

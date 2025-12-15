@@ -45,7 +45,7 @@ def collider(self, position, direction):
     # Verifica colisão com paredes
     for y in range(len(self.map)):
         for x in range(len(self.map[0])):
-            if self.map[y][x] == "barreira":  #falta o mapa p saber oq vai botar p representar a barreira
+            if self.map[y][x] == "#":
                 
                 # área sólida da parede
                 x_wall = x * self.scale

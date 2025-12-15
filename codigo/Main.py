@@ -41,7 +41,7 @@ def main():
         screen.fill(C.BLACK)
         mapa.get_walls().draw(screen)
         mapa.get_pellets().draw(screen)
-        screen.blit(jogador.image, jogador.rect)
+        jogador.draw(screen)
 
         pygame.display.flip()
         clock.tick(C.FPS)
