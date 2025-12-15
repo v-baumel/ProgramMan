@@ -1,11 +1,11 @@
 import pygame
 pygame.init()
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 import Constantes as C
 import Mapa
 import Jogador
 
 def main():
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     
     pygame.display.set_caption("ProgramMan")
     clock = pygame.time.Clock()

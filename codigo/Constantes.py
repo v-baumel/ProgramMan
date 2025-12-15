@@ -9,6 +9,11 @@ MAP_X = 36
 MAP_Y = 28
 TILE_SIZE = (Y_MAX*0.9)// MAP_Y
 
+WALL_IMAGE = pygame.transform.scale(
+    pygame.image.load("imagens/parede.jpg").convert_alpha(),
+    (TILE_SIZE, TILE_SIZE)
+)
+
 FPS = 60
 
 # cores
