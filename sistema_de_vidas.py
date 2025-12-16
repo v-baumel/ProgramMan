@@ -17,23 +17,10 @@ class SistemaVidas:
     
     def coletar_bolinha(self):
         self.bolinhas_coletadas += 1
-
-        if self.bolinhas_coletadas % 25 == 0:
-            self.vidas += 1
-            return "vida_extra"
-        
-        return "bolinha"
-
-    def checar_ativacao_power_up(self):
-        if self.vidas >= 8 and not self.powerup_ativo:
-            self.ativar_powerup()
-            return True
-        return False
     
     def ativar_power_up(self):
         self.powerup_ativo = True
         self.tempo_inicio_powerup = time.time()
-        self.fantasmas_comidos = 0
     
     def atualizar_power_up(self):
         if not self.powerup_ativo:

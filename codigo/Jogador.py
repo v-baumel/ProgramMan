@@ -1,6 +1,7 @@
 import pygame
 import Personagem
 import Constantes as C
+from sistema_de_vidas import SistemaVidas
 from animacoes_jogo import AnimationSystem
 
 
@@ -11,6 +12,7 @@ class Jogador(Personagem.Personagem):
         self.image.fill(C.YELLOW)
         self.anim = AnimationSystem()
         self.facing = "baixo"
+        self.tracker = SistemaVidas()
 
     def handle_input(self):
         keys = pygame.key.get_pressed()
@@ -56,3 +58,24 @@ class Jogador(Personagem.Personagem):
                 self.facing = "cima"
             elif dy > 0:
                 self.facing = "baixo"
+
+        pellets = self.mapa.get_pellets()
+        upgrades = self.mapa.get_upgrade()
+        fruit = self.mapa.get_fruit()
+
+        pellet_hits = pygame.sprite.spritecollide(self,pellets,False)
+        if  pellet_hits:
+            for pellet in pellet_hits:
+                pellet.kill()
+            #SistemaVidas.coletar_bolinha()    
+        
+        upgrade_hits = pygame.sprite.spritecollide(self,upgrades,False)
+        if upgrade_hits:
+            for upgrade in upgrade_hits:
+                upgrade.kill()
+            #SistemaVidas.ativar_power_up()
+            #SistemaVidas.coletar_power_up()
+        fruits_hits = pygame.sprite.spritecollide(self,fruit,False)
+        if fruits_hits:
+            for fruit in fruits_hits:
+                fruit.kill()
