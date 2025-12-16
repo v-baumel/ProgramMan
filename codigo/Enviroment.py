@@ -27,12 +27,17 @@ class Pellet(pygame.sprite.Sprite):
         self.rect.center = (x + TILE_SIZE // 2, y + TILE_SIZE // 2)
 
 class Upgrade(pygame.sprite.Sprite):
-    def _init_(self,x,y):
+    def __init__(self,x,y):
         super().__init__()
-        radius = C.TILE_SIZE//2
-        size = radius *2
-        self.image = pygame.Surface((C.TILE_SIZE,C.TILE_SIZE),pygame.SRCALPHA)
+        radius = C.TILE_SIZE // 4
+        size = radius * 2
+        self.image = pygame.Surface((C.TILE_SIZE, C.TILE_SIZE), pygame.SRCALPHA)
         center = self.image.get_rect().center
-        pygame.draw.circle(self.image,C.BLUE,center,radius)
-        self.rect= self.image.get_rect()
-        self.rect.center = (x+TILE_SIZE//2,y+C.TILE_SIZE//2)
+        pygame.draw.circle(
+            self.image,
+            (0,255,0),
+            center,
+            radius
+        )
+        self.rect = self.image.get_rect()
+        self.rect.center = (x + TILE_SIZE // 2, y + TILE_SIZE // 2)

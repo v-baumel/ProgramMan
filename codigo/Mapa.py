@@ -33,13 +33,13 @@ class Mapa:
                 elif tile == ".":
                     pellet = Pellet(x, y)
                     self.pellets.add(pellet)
+                elif tile == "O":
+                    upgrade = Upgrade(x, y)
+                    self.upgrade.add(upgrade)
                 elif tile == "P":
                     self.player_start = (x, y)
                 elif tile == "F":
                     self.ghost_starts.append((x, y))
-                elif tile == "O":
-                    upgrade = Upgrade(x,y)
-                    self.upgrade.add(upgrade)
     def get_upgrade(self):
         return self.upgrade
 
