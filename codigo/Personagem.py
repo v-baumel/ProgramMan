@@ -1,7 +1,8 @@
 import pygame
 import Constantes as C
 import Mapa 
-
+from sistema_de_vidas import SistemaVidas
+from movimentação_do_progam_man import collider
 #superclasse para os fantasmas e o jogador
 class Personagem(pygame.sprite.Sprite):
     def __init__(self, x, y, mapa:Mapa):
@@ -19,7 +20,8 @@ class Personagem(pygame.sprite.Sprite):
 
     def update(self, dt):
         walls = self.mapa.get_walls()
-
+        pellets = self.mapa.get_pellets()
+        upgrades = self.mapa.get_upgrade()
         old_pos = self.rect.topleft
 
         self.rect.x += self.next_direction[0] * self.speed #* dt
@@ -36,5 +38,16 @@ class Personagem(pygame.sprite.Sprite):
             hit_list = pygame.sprite.spritecollide(self, walls, False)
             if hit_list:
                 self.rect.topleft = old_pos
-            
+
+        pellet_hits = pygame.sprite.spritecollide(self,pellets,False)
+        if  pellet_hits:
+            Mapa.Pellet.pygame.sprite.remove(collider[0,1])    
+            SistemaVidas.coletar_bolinha()    
+        
+        upgrade_hits = pygame.sprite.spritecollide(self,upgrades,False)
+        if upgrade_hits:
+            Mapa.Upgrade.pygame.sprite.remove(collider[0,1])
+            SistemaVidas.ativar_power_up()
+            SistemaVidas.coletar_power_up()
+
 
