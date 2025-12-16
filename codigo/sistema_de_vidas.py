@@ -6,6 +6,7 @@ class SistemaVidas:
     def __init__(self):
         self.vidas = 3
         self.bolinhas_coletadas = 0
+        self.powerups_coletados = 0
         self.fantasmas_comidos = 0
         self.powerup_ativo = False
         self.tempo_inicio_powerup = 0
@@ -20,9 +21,13 @@ class SistemaVidas:
 
         if self.bolinhas_coletadas % 25 == 0:
             self.vidas += 1
-            return "vida_extra"
+
+        return 
+    
+    def coletar_power_up(self):
+        self.powerups_coletados +=1 
         
-        return "bolinha"
+        return
 
     def checar_ativacao_power_up(self):
         if self.vidas >= 8 and not self.powerup_ativo:
