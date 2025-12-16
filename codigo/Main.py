@@ -18,7 +18,7 @@ def main():
     map_height = C.MAP_Y * C.TILE_SIZE
     offset_x = (C.X_MAX - map_width) // 2
     offset_y = 0
-
+    
     for wall in mapa.get_walls():
         wall.rect.x += offset_x
         wall.rect.y += offset_y
