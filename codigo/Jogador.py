@@ -10,7 +10,7 @@ class Jogador(Personagem.Personagem):
         self.speed = 2
         self.image.fill(C.YELLOW)
         self.anim = AnimationSystem()
-        self.facing = "direita"
+        self.facing = "baixo"
 
     def handle_input(self):
         keys = pygame.key.get_pressed()

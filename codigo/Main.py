@@ -2,6 +2,7 @@ import pygame
 pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 import Constantes as C
+C.screen = screen
 import Mapa
 import Jogador
 

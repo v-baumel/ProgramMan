@@ -13,7 +13,15 @@ class Wall(pygame.sprite.Sprite):
 class Pellet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = pygame.Surface([TILE_SIZE//3, TILE_SIZE//3])
-        self.image.fill(C.BLUE)
+        radius = C.TILE_SIZE // 4
+        size = radius * 2
+        self.image = pygame.Surface((C.TILE_SIZE, C.TILE_SIZE), pygame.SRCALPHA)
+        center = self.image.get_rect().center
+        pygame.draw.circle(
+            self.image,
+            C.DARK_GREEN,
+            center,
+            radius
+        )
         self.rect = self.image.get_rect()
         self.rect.center = (x + TILE_SIZE // 2, y + TILE_SIZE // 2)

@@ -12,8 +12,8 @@ class Personagem(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (x-1, y-1)
         self.speed = 1
-        self.direction = (0, 0) # (dx, dy)
-        self.next_direction = (0, 0)
+        self.direction = (0, 1) # (dx, dy)
+        self.next_direction = (0, 1)
         self.score = 0
         self.mapa = mapa
 
