@@ -2,16 +2,17 @@ import pygame
 import Constantes as C
 from Enviroment import Wall
 from Enviroment import Pellet
-
+from Enviroment import Upgrade
 class Mapa:
     def __init__(self, level_data):
         self.tile_size = C.TILE_SIZE
         self.walls = pygame.sprite.Group()
         self.pellets = pygame.sprite.Group()
+        self.upgrade= pygame.sprite.Group()
         self.player_start = None
         self.ghost_starts = []
         # Tamanho: 31 linhas x 28 colunas (tamanho original do arcade)
-        #  Legenda:
+        #  Legenda:0
         # # = Parede
         # . = Caminho com pellet normal
         # O = Power-up (pellet maior)
@@ -36,6 +37,11 @@ class Mapa:
                     self.player_start = (x, y)
                 elif tile == "F":
                     self.ghost_starts.append((x, y))
+                elif tile == "O":
+                    upgrade = Upgrade(x,y)
+                    self.upgrade.add(upgrade)
+    def get_upgrade(self):
+        return self.upgrade
 
     def get_walls(self):
         return self.walls
