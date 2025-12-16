@@ -1,0 +1,59 @@
+import pygame
+#import mapa(lá tem as funções com as posições e os contadores labirinto.py)
+
+def obter_posicoes_pellets(labirinto):
+    posicoes = []
+    for i in range(len(labirinto)):
+        for j in range(len(labirinto[i])):
+            if labirinto[i][j]== ".":
+                posicoes.append([i,j])
+    return posicoes
+
+
+
+def position_status(collider):     #correspondencia de posição X elemento
+    
+    if collider[0][1] in obter_posicoes_power_up:   #verifica e remove o power_up do mapa  
+        Mapa.pellets.pygame.sprite.remove(collider[0][1])
+        #power_up_taked_counter +=1    caso decida colocar o contador crescente 
+        return 2
+
+    elif collider[0][1] in obter_posicoes_pellets:      #exato mesmo processo só que referenciando os pontos menores       
+        Mapa.pellets.pygame.sprite.remove(collider[0][1])
+        #pellet_Taked_Counter += 1
+        return 1              
+    else:
+        return 0
+
+def update_counters(position_status,Mapa,):
+    if position_status == 2:
+        positions = obter_posicoes_pellets(Mapa)
+        quantity = contar_pellets(Mapa)
+        return positions,quantity
+        
+    elif position_status== 1:
+        positions = obter_posicoes_power_ups(Mapa)
+        quantity = contar_powerups(Mapa)
+        return positions,quantity
+
+    
+
+
+
+#################
+#adicionar no Enviroment.py
+class Up(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        super()._init_()
+        radius = C.TILE_SIZE // 4
+        size = radius * 2
+        center = self.image.get_rect().center
+
+        self.image = pygame.Surface((C.TILE_SIZE, C.TILE_SIZE), pygame.SRCALPHA)
+
+        pygame.draw.circle(self.image,C.DARK_GREEN,center,radius)
+#############
+#adicionar na class Mapa do Mapa.py junto dos outros tipos de tile
+elif tile == "O":
+    pellet = Up(x,y)
+    self.pellets.add(pellet)
