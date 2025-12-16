@@ -25,6 +25,9 @@ def main():
     for pellet in mapa.get_pellets():
         pellet.rect.x += offset_x
         pellet.rect.y += offset_y
+    for upgrade in mapa.get_upgrade():
+        upgrade.rect.x += offset_x
+        upgrade.rect.y += offset_y
 
     jogador = Jogador.Jogador(mapa.player_start[0] + offset_x, mapa.player_start[1] + offset_y, mapa)
 
@@ -42,6 +45,7 @@ def main():
         screen.fill(C.BLACK)
         mapa.get_walls().draw(screen)
         mapa.get_pellets().draw(screen)
+        mapa.get_upgrade().draw(screen)
         jogador.draw(screen)
 
         pygame.display.flip()

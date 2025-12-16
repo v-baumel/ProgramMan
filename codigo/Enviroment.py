@@ -26,6 +26,9 @@ class Pellet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (x + TILE_SIZE // 2, y + TILE_SIZE // 2)
 
+        
+
+
 class Power_up(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -35,7 +38,7 @@ class Power_up(pygame.sprite.Sprite):
         center = self.image.get_rect().center
         pygame.draw.circle(
             self.image,
-            C.DARK_GREEN,
+            C.BLUE,
             center,
             radius
         )
