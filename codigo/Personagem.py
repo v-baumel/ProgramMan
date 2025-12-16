@@ -1,7 +1,6 @@
 import pygame
 import Constantes as C
 import Mapa 
-from sistema_de_vidas import SistemaVidas
 #superclasse para os fantasmas e o jogador
 class Personagem(pygame.sprite.Sprite):
     def __init__(self, x, y, mapa:Mapa):

@@ -20,13 +20,15 @@ class SistemaVidas:
     def coletar_bolinha(self):
         self.bolinhas_coletadas += 1
 
-        if self.bolinhas_coletadas % 25 == 0:
-            self.vidas += 1
-
         return 
     
     def coletar_power_up(self):
         self.powerups_coletados +=1 
+        
+        return
+    
+    def colect_fruits(self):
+        self.fruitinhas +=1 
         
         return
 

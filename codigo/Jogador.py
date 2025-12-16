@@ -1,5 +1,6 @@
 import pygame
 import Personagem
+import Mapa
 import Constantes as C
 from sistema_de_vidas import SistemaVidas
 from animacoes_jogo import AnimationSystem
@@ -13,7 +14,7 @@ class Jogador(Personagem.Personagem):
         self.anim = AnimationSystem()
         self.facing = "baixo"
         self.tracker = SistemaVidas()
-
+        
     def handle_input(self):
         keys = pygame.key.get_pressed()
         nd = (0, 0)
@@ -27,6 +28,30 @@ class Jogador(Personagem.Personagem):
             nd = (0, 1)
         if nd != (0, 0):
             self.next_direction = nd
+
+    def objects_colision(self):
+        pellets = self.mapa.get_pellets()
+        power_up = self.mapa.get_upgrade()
+        fruits = self.mapa.get_fruit()
+        
+        pellet_hits = pygame.sprite.spritecollide(self,pellets,False)
+        if pellet_hits :
+            for pellet in pellet_hits:
+                pygame.sprite.kill(pellet)
+            self.tracker.coletar_bolinha(self)
+        
+        power_hit = pygame.sprite.spritecollide(self,power_up,False)
+        if power_hit:
+            for pp in power_hit:
+                pygame.sprite.kill(pp)
+            self.tracker.ativar_power_up(self)
+            self.tracker.coletar_power_up(self)
+        
+        fruits_hit = pygame.sprite.spritecollide(self,fruits,False)
+        if fruits_hit:
+            for fruits_hited in fruits_hit:
+                pygame.sprite.kill(fruits_hited)
+                self.tracker.colect_fruits(self)
 
     def draw(self, surface):
         self.anim.update()
