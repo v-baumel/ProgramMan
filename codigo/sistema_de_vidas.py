@@ -2,7 +2,6 @@ import pygame
 import time
 
 class SistemaVidas:
-
     def __init__(self):
         self.vidas = 3
         self.bolinhas_coletadas = 0
@@ -16,6 +15,23 @@ class SistemaVidas:
         self.temporizador_invulneravel = 0
         self.duracao_invulneravel = 90  #1,5 seg sem levar dano dps de perder vida 
     
+    def power_up_colision(self):        
+        upgrades = self.mapa.get_upgrade()
+        upgrade_hits = pygame.sprite.spritecollide(self,upgrades,False)
+        if upgrade_hits:
+            for upgrade in upgrade_hits:
+                upgrade.kill()
+            self.ativar_power_up()
+            self.coletar_power_up()
+
+    def pellets_colision(self):
+        pellets = self.mapa.get_pellets()
+        pellet_hits = pygame.sprite.spritecollide(self,pellets,False)
+        if  pellet_hits:
+            for pellet in pellet_hits:
+                pellet.kill()
+            SistemaVidas.coletar_bolinha()
+
     def coletar_bolinha(self):
         self.bolinhas_coletadas += 1
 

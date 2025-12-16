@@ -2,7 +2,7 @@ import pygame
 import Constantes as C
 from Enviroment import Wall
 from Enviroment import Pellet
-from Enviroment import Upgrade
+from Enviroment import Power_up
 class Mapa:
     def __init__(self, level_data):
         self.tile_size = C.TILE_SIZE
@@ -34,7 +34,7 @@ class Mapa:
                     pellet = Pellet(x, y)
                     self.pellets.add(pellet)
                 elif tile == "O":
-                    upgrade = Upgrade(x, y)
+                    upgrade = Power_up(x, y)
                     self.upgrade.add(upgrade)
                 elif tile == "P":
                     self.player_start = (x, y)
