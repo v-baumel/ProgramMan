@@ -6,6 +6,7 @@ class SistemaVidas:
     def __init__(self):
         self.vidas = 3
         self.bolinhas_coletadas = 0
+        self.fruitinhas =0
         self.powerups_coletados = 0
         self.fantasmas_comidos = 0
         self.powerup_ativo = False

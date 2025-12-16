@@ -28,6 +28,9 @@ def main():
     for upgrade in mapa.get_upgrade():
         upgrade.rect.x += offset_x
         upgrade.rect.y += offset_y
+    for fruits in mapa.get_fruit():
+        fruits.rect.x += offset_x
+        fruits.rect.y += offset_y
 
     jogador = Jogador.Jogador(mapa.player_start[0] + offset_x, mapa.player_start[1] + offset_y, mapa)
 
@@ -46,6 +49,7 @@ def main():
         mapa.get_walls().draw(screen)
         mapa.get_pellets().draw(screen)
         mapa.get_upgrade().draw(screen)
+        mapa.get_fruit().draw(screen)
         jogador.draw(screen)
 
         pygame.display.flip()

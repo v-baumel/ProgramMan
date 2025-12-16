@@ -44,3 +44,13 @@ class Power_up(pygame.sprite.Sprite):
         )
         self.rect = self.image.get_rect()
         self.rect.center = (x + TILE_SIZE // 2, y + TILE_SIZE // 2)
+
+class Fruit(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        super().__init__()
+        radius = C.TILE_SIZE//4
+        self.image = pygame.Surface((C.TILE_SIZE,C.TILE_SIZE),pygame.SRCALPHA)
+        center = self.image.get_rect().center
+        pygame.draw.circle(self.image,C.RED,center,radius)
+        self.rect = self.image.get_rect()
+        self.rect.center = (x+TILE_SIZE // 2, y + TILE_SIZE // 2)

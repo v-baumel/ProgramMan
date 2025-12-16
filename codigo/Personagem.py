@@ -21,6 +21,7 @@ class Personagem(pygame.sprite.Sprite):
         walls = self.mapa.get_walls()
         pellets = self.mapa.get_pellets()
         upgrades = self.mapa.get_upgrade()
+        fruit = self.mapa.get_fruit()
         old_pos = self.rect.topleft
 
         self.rect.x += self.next_direction[0] * self.speed #* dt
@@ -50,5 +51,9 @@ class Personagem(pygame.sprite.Sprite):
                 upgrade.kill()
             #SistemaVidas.ativar_power_up()
             #SistemaVidas.coletar_power_up()
+        fruits_hits = pygame.sprite.spritecollide(self,fruit,False)
+        if fruits_hits:
+            for fruit in fruits_hits:
+                fruit.kill()
 
 
