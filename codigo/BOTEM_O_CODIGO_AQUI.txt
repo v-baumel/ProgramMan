@@ -52,10 +52,20 @@ def main():
         mapa.get_fruit().draw(screen)
         jogador.draw(screen)
 
-        texto_score = font.render(f"Coletáveis: {jogador.score}", True, C.WHITE)
-        x = C.X_MAX - texto_score.get_width() - 80 
+        text_teclas_apertadas = font.render(f"Teclas apertadas: {jogador.score}", True, C.WHITE)
+        x = C.X_MAX - text_teclas_apertadas.get_width() - 80 
         y = 20
-        screen.blit(texto_score, (x, y))
+        screen.blit(text_teclas_apertadas, (x, y))
+        
+        text_monitores_chamados = font.render(f"Monitores chamados: {jogador.score}", True, C.WHITE)
+        x = C.X_MAX - text_monitores_chamados.get_width() - 80 
+        y = 40
+        screen.blit(text_monitores_chamados, (x, y))
+
+        text_energeticos_consumidos = font.render(f"Energéticos consumidos: {jogador.score}", True, C.WHITE)
+        x = C.X_MAX - text_energeticos_consumidos.get_width() - 80 
+        y = 60
+        screen.blit(text_energeticos_consumidos, (x, y))
 
         pygame.display.flip()
         clock.tick(C.FPS)
