@@ -10,7 +10,7 @@ def main():
     
     pygame.display.set_caption("ProgramMan")
     clock = pygame.time.Clock()
-    font = pygame.font.SysFont('Arial', 100)
+    font = pygame.font.SysFont('Arial', 60)
 
     mapa = Mapa.Mapa(C.MAPA_1)
 
@@ -72,3 +72,4 @@ def main():
 
 if __name__ == "__main__":
     main() 
+
