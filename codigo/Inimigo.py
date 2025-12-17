@@ -12,7 +12,9 @@ class Inimigo(Personagem):
         self.image.fill(C.RED) 
 
     def update(self, dt):
-
+        #estratégia de perseguição simples
+        #verifica quais direções são possíveis (tenta evitar voltar na direção oposta)
+        #escolhe a que minimiza a distância ao jogador, com alguma aleatoriedade 
         def check_dir(d):
             self.rect.x += d[0] * self.speed
             self.rect.y += d[1] * self.speed
@@ -29,7 +31,6 @@ class Inimigo(Personagem):
         if not possible_dirs:
             self.direction = (0, 0)
         else:
-            # avoid immediate backtracking when possible
             choices = possible_dirs
             if opposite_dir in choices and len(choices) > 1:
                 choices = [d for d in choices if d != opposite_dir]
@@ -41,10 +42,9 @@ class Inimigo(Personagem):
                 dist = (player.rect.centerx - nx) ** 2 + (player.rect.centery - ny) ** 2
                 scored.append((dist, d))
 
-            scored.sort(key=lambda x: x[0])
+            scored.sort(key=lambda x: x[0]) # organizar por distancia
 
-            # randomness: sometimes don't pick the absolute best
-            if len(scored) > 1 and random.random() < 0.4:
+            if len(scored) > 1 and random.random() < 0.4: # 40% de chance de escolher um caminho aleatório entre os piores
                 self.direction = random.choice([d for _, d in scored[1:]])
             else:
                 self.direction = scored[0][1]
