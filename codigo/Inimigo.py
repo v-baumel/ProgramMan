@@ -44,7 +44,7 @@ class Inimigo(Personagem):
 
             scored.sort(key=lambda x: x[0]) # organizar por distancia
 
-            if len(scored) > 1 and random.random() < 0.4: # 40% de chance de escolher um caminho aleatório entre os piores
+            if len(scored) > 1 and random.random() < 0.5: # 50% de chance de escolher um caminho aleatório entre os piores
                 self.direction = random.choice([d for _, d in scored[1:]])
             else:
                 self.direction = scored[0][1]
