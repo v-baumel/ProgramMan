@@ -5,7 +5,7 @@ Y_MAX = sInfo.current_h
 print(X_MAX, Y_MAX)
 
 # config
-MAP_X = 36
+MAP_X = 31
 MAP_Y = 28
 TILE_SIZE = (Y_MAX*0.9)// MAP_Y
 

@@ -10,7 +10,7 @@ def main():
     
     pygame.display.set_caption("ProgramMan")
     clock = pygame.time.Clock()
-    font = pygame.font.SysFont('Arial', 24)
+    font = pygame.font.SysFont('Arial', 40)
 
     mapa = Mapa.Mapa(C.MAPA_1)
 
@@ -51,6 +51,19 @@ def main():
         mapa.get_upgrade().draw(screen)
         mapa.get_fruit().draw(screen)
         jogador.draw(screen)
+
+        text_teclas_apertadas = font.render(f"Teclas apertadas: {jogador.score}", True, C.WHITE)
+        x = offset_x + map_width-80
+        y = 20
+        screen.blit(text_teclas_apertadas, (x, y))
+        
+        text_monitores_chamados = font.render(f"Monitores chamados: {jogador.score}", True, C.WHITE)
+        y = 80
+        screen.blit(text_monitores_chamados, (x, y))
+
+        text_energeticos_consumidos = font.render(f"Energéticos consumidos: {jogador.score}", True, C.WHITE)
+        y = 140  
+        screen.blit(text_energeticos_consumidos, (x, y))    
 
         pygame.display.flip()
         clock.tick(C.FPS)
