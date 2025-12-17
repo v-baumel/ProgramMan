@@ -1,9 +1,11 @@
 import pygame 
 import time
+import Constantes as C
 
 class SistemaVidas:
 
     def __init__(self):
+        print("iniciando sistema de vidas")
         self.vidas = 3
         self.bolinhas_coletadas = 0
         self.fruitinhas =0
@@ -19,17 +21,18 @@ class SistemaVidas:
     
     def coletar_bolinha(self):
         self.bolinhas_coletadas += 1
-
+        print("bolinhas coletadas:", self.bolinhas_coletadas)
+        C.text_teclas = f"Teclas apertadas: {self.bolinhas_coletadas}"
         return 
     
     def coletar_power_up(self):
         self.powerups_coletados +=1 
-        
+        C.text_monitores = f"Monitores chamados: {self.powerups_coletados}"
         return
     
     def colect_fruits(self):
-        self.fruitinhas +=1 
-        
+        self.fruitinhas +=1
+        C.text_energeticos = f"Energéticos consumidos: {self.fruitinhas}"
         return
 
     def checar_ativacao_power_up(self):

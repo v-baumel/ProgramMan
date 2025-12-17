@@ -37,21 +37,21 @@ class Jogador(Personagem.Personagem):
         pellet_hits = pygame.sprite.spritecollide(self,pellets,False)
         if pellet_hits :
             for pellet in pellet_hits:
-                pygame.sprite.kill(pellet)
-            self.tracker.coletar_bolinha(self)
+                pellet.kill()
+                self.tracker.coletar_bolinha()
         
         power_hit = pygame.sprite.spritecollide(self,power_up,False)
         if power_hit:
             for pp in power_hit:
-                pygame.sprite.kill(pp)
-            self.tracker.ativar_power_up(self)
-            self.tracker.coletar_power_up(self)
+                pp.kill()
+                #self.tracker.ativar_power_up()
+                self.tracker.coletar_power_up()
         
         fruits_hit = pygame.sprite.spritecollide(self,fruits,False)
         if fruits_hit:
             for fruits_hited in fruits_hit:
-                pygame.sprite.kill(fruits_hited)
-                self.tracker.colect_fruits(self)
+                fruits_hited.kill()
+                self.tracker.colect_fruits()
 
     def draw(self, surface):
         self.anim.update()
@@ -84,23 +84,4 @@ class Jogador(Personagem.Personagem):
             elif dy > 0:
                 self.facing = "baixo"
 
-        pellets = self.mapa.get_pellets()
-        upgrades = self.mapa.get_upgrade()
-        fruit = self.mapa.get_fruit()
-
-        pellet_hits = pygame.sprite.spritecollide(self,pellets,False)
-        if  pellet_hits:
-            for pellet in pellet_hits:
-                pellet.kill()
-            #SistemaVidas.coletar_bolinha()    
-        
-        upgrade_hits = pygame.sprite.spritecollide(self,upgrades,False)
-        if upgrade_hits:
-            for upgrade in upgrade_hits:
-                upgrade.kill()
-            #SistemaVidas.ativar_power_up()
-            #SistemaVidas.coletar_power_up()
-        fruits_hits = pygame.sprite.spritecollide(self,fruit,False)
-        if fruits_hits:
-            for fruit in fruits_hits:
-                fruit.kill()
+        self.objects_colision()

@@ -52,16 +52,16 @@ def main():
         mapa.get_fruit().draw(screen)
         jogador.draw(screen)
 
-        text_teclas_apertadas = font.render(f"Teclas apertadas: {jogador.score}", True, C.WHITE)
+        text_teclas_apertadas = font.render(f"Teclas apertadas: {jogador.tracker.bolinhas_coletadas}", True, C.WHITE)
         x = offset_x + map_width-80
         y = 20
         screen.blit(text_teclas_apertadas, (x, y))
         
-        text_monitores_chamados = font.render(f"Monitores chamados: {jogador.score}", True, C.WHITE)
+        text_monitores_chamados = font.render(f"Monitores chamados: {jogador.tracker.powerups_coletados}", True, C.WHITE)
         y = 80
         screen.blit(text_monitores_chamados, (x, y))
 
-        text_energeticos_consumidos = font.render(f"Energéticos consumidos: {jogador.score}", True, C.WHITE)
+        text_energeticos_consumidos = font.render(f"Energéticos consumidos: {jogador.tracker.fruitinhas}", True, C.WHITE)
         y = 140  
         screen.blit(text_energeticos_consumidos, (x, y))    
 

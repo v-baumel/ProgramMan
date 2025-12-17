@@ -4,6 +4,10 @@ X_MAX = sInfo.current_w
 Y_MAX = sInfo.current_h
 print(X_MAX, Y_MAX)
 
+screen = None
+
+text_teclas, text_monitores, text_energeticos = "Monitores chamados: 0", "Teclas apertadas: 0", "Energéticos consumidos: 0"
+
 # config
 MAP_X = 31
 MAP_Y = 28
