@@ -10,7 +10,7 @@ def main():
     
     pygame.display.set_caption("ProgramMan")
     clock = pygame.time.Clock()
-    font = pygame.font.SysFont('Arial', 24)
+    font = pygame.font.SysFont('Arial', 50)
 
     mapa = Mapa.Mapa(C.MAPA_1)
 
@@ -53,7 +53,7 @@ def main():
         jogador.draw(screen)
 
         texto_score = font.render(f"Coletáveis: {jogador.score}", True, C.WHITE)
-        x = C.X_MAX - texto_score.get_width() - 20
+        x = C.X_MAX - texto_score.get_width() - 80 
         y = 20
         screen.blit(texto_score, (x, y))
 
