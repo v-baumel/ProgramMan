@@ -21,7 +21,6 @@ class SistemaVidas:
     
     def coletar_bolinha(self):
         self.bolinhas_coletadas += 1
-        print("bolinhas coletadas:", self.bolinhas_coletadas)
         C.text_teclas = f"Teclas apertadas: {self.bolinhas_coletadas}"
         return 
     
