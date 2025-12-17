@@ -1,0 +1,54 @@
+import pygame
+from Personagem import Personagem
+import Constantes as C
+import random
+
+directions = ((1,0), (-1,0), (0,1), (0,-1))
+
+class Inimigo(Personagem):
+    def __init__(self, x, y, mapa):
+        super().__init__(x, y, mapa)
+        self.speed = 3
+        self.image.fill(C.RED) 
+
+    def update(self, dt):
+
+        def check_dir(d):
+            self.rect.x += d[0] * self.speed
+            self.rect.y += d[1] * self.speed
+            hit_wall = pygame.sprite.spritecollide(self, self.mapa.get_walls(), False)
+            self.rect.x -= d[0] * self.speed
+            self.rect.y -= d[1] * self.speed
+            return not hit_wall
+
+        player = self.mapa.player
+        opposite_dir = (-self.direction[0], -self.direction[1])
+
+        possible_dirs = [d for d in directions if check_dir(d)]
+
+        if not possible_dirs:
+            self.direction = (0, 0)
+        else:
+            # avoid immediate backtracking when possible
+            choices = possible_dirs
+            if opposite_dir in choices and len(choices) > 1:
+                choices = [d for d in choices if d != opposite_dir]
+
+            scored = []
+            for d in choices:
+                nx = self.rect.centerx + d[0] * C.TILE_SIZE
+                ny = self.rect.centery + d[1] * C.TILE_SIZE
+                dist = (player.rect.centerx - nx) ** 2 + (player.rect.centery - ny) ** 2
+                scored.append((dist, d))
+
+            scored.sort(key=lambda x: x[0])
+
+            # randomness: sometimes don't pick the absolute best
+            if len(scored) > 1 and random.random() < 0.4:
+                self.direction = random.choice([d for _, d in scored[1:]])
+            else:
+                self.direction = scored[0][1]
+
+        self.rect.x += self.direction[0] * self.speed
+        self.rect.y += self.direction[1] * self.speed
+        

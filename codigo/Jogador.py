@@ -9,7 +9,7 @@ from animacoes_jogo import AnimationSystem
 class Jogador(Personagem.Personagem):
     def __init__(self, x, y, mapa):
         super().__init__(x, y, mapa)
-        self.speed = 2
+        self.speed = 3
         self.image.fill(C.YELLOW)
         self.anim = AnimationSystem()
         self.facing = "baixo"
@@ -52,6 +52,9 @@ class Jogador(Personagem.Personagem):
             for fruits_hited in fruits_hit:
                 fruits_hited.kill()
                 self.tracker.colect_fruits()
+        enemies_hit = pygame.sprite.spritecollide(self, self.mapa.ghosts, False)
+        if enemies_hit:
+            exit()
 
     def draw(self, surface):
         self.anim.update()
@@ -72,7 +75,6 @@ class Jogador(Personagem.Personagem):
         self.anim.desenhar_estudante_sem_poder(surface, x, y, facing, size)
 
     def update(self, dt):
-        super().update(dt)
         if self.direction != (0, 0):
             dx, dy = self.direction
             if dx < 0:
@@ -83,5 +85,24 @@ class Jogador(Personagem.Personagem):
                 self.facing = "cima"
             elif dy > 0:
                 self.facing = "baixo"
+        
+        walls = self.mapa.get_walls()
+        old_pos = self.rect.topleft
+
+        self.rect.x += self.next_direction[0] * self.speed #* dt
+        self.rect.y += self.next_direction[1] * self.speed #* dt
+
+        wall_hits = pygame.sprite.spritecollide(self, walls, False)
+        if not wall_hits:
+            self.direction = self.next_direction
+        else:
+            self.rect.topleft = old_pos
+            self.rect.x += self.direction[0] * self.speed
+            self.rect.y += self.direction[1] * self.speed
+
+            hit_list = pygame.sprite.spritecollide(self, walls, False)
+            if hit_list:
+                self.rect.topleft = old_pos
+
 
         self.objects_colision()

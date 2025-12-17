@@ -5,7 +5,7 @@ from Enviroment import Pellet
 from Enviroment import Power_up
 from Enviroment import Fruit
 class Mapa:
-    def __init__(self, level_data):
+    def __init__(self, level_data, offset_x, offset_y):
         self.tile_size = C.TILE_SIZE
         self.walls = pygame.sprite.Group()
         self.pellets = pygame.sprite.Group()
@@ -13,21 +13,22 @@ class Mapa:
         self.fruit = pygame.sprite.Group()
         self.player_start = None
         self.ghost_starts = []
+        self.player = None
+        self.ghosts = None
         # Tamanho: 31 linhas x 28 colunas (tamanho original do arcade)
-        #  Legenda:0
+        #  Legenda:
         # # = Parede
         # . = Caminho com pellet normal
         # O = Power-up (pellet maior)
-        # F = Fruta
         # X = Espaço vazio (sem pellet - área dos fantasmas)
         # T = Túnel (teleporte entre bordas)
         # P = Posição inicial do Pac-Man
         # L = Posicão inicial de Inimigo
-        
+
         for row_index, row in enumerate(level_data):
             for col_index, tile in enumerate(row):
-                x = col_index * self.tile_size
-                y = row_index * self.tile_size
+                x = col_index * self.tile_size + offset_x
+                y = row_index * self.tile_size + offset_y
 
                 
                 if tile == "#":
@@ -41,7 +42,7 @@ class Mapa:
                     self.upgrade.add(upgrade)
                 elif tile == "P":
                     self.player_start = (x, y)
-                elif tile == "F":
+                elif tile == "L":
                     self.ghost_starts.append((x, y))
                 elif tile == "K":
                     fruit = Fruit(x,y)
@@ -56,4 +57,7 @@ class Mapa:
         return self.pellets
     def get_fruit(self):
         return self.fruit
+
+    def get_ghost_starts(self):
+        return self.ghost_starts
     

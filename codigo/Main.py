@@ -5,6 +5,7 @@ import Constantes as C
 C.screen = screen
 import Mapa
 import Jogador
+import Inimigo
 
 def main():
     
@@ -12,27 +13,21 @@ def main():
     clock = pygame.time.Clock()
     font = pygame.font.SysFont('Arial', 40)
 
-    mapa = Mapa.Mapa(C.MAPA_1)
-
     map_width = C.MAP_X * C.TILE_SIZE
     map_height = C.MAP_Y * C.TILE_SIZE
     offset_x = (C.X_MAX - map_width) // 2
     offset_y = 0
-    
-    for wall in mapa.get_walls():
-        wall.rect.x += offset_x
-        wall.rect.y += offset_y
-    for pellet in mapa.get_pellets():
-        pellet.rect.x += offset_x
-        pellet.rect.y += offset_y
-    for upgrade in mapa.get_upgrade():
-        upgrade.rect.x += offset_x
-        upgrade.rect.y += offset_y
-    for fruits in mapa.get_fruit():
-        fruits.rect.x += offset_x
-        fruits.rect.y += offset_y
 
-    jogador = Jogador.Jogador(mapa.player_start[0] + offset_x, mapa.player_start[1] + offset_y, mapa)
+    mapa = Mapa.Mapa(C.MAPA_1, offset_x, offset_y)
+
+    jogador = Jogador.Jogador(mapa.player_start[0], mapa.player_start[1], mapa)
+    mapa.player = jogador
+    inimigos = pygame.sprite.Group()
+    mapa.ghosts = inimigos
+    
+    for gx, gy in mapa.ghost_starts:
+        inimigo = Inimigo.Inimigo(gx, gy, mapa)
+        inimigos.add(inimigo)
 
     while True:
         for event in pygame.event.get():
@@ -44,6 +39,7 @@ def main():
 
         jogador.handle_input()
         jogador.update(1 / C.FPS)
+        for inimigo in inimigos: inimigo.update(1 / C.FPS)
 
         screen.fill(C.BLACK)
         mapa.get_walls().draw(screen)
@@ -51,6 +47,7 @@ def main():
         mapa.get_upgrade().draw(screen)
         mapa.get_fruit().draw(screen)
         jogador.draw(screen)
+        inimigos.draw(screen)
 
         text_teclas_apertadas = font.render(f"Teclas apertadas: {jogador.tracker.bolinhas_coletadas}", True, C.WHITE)
         x = offset_x + map_width-80
