@@ -1,6 +1,7 @@
 import pygame
 import math
 import random
+import time
 pygame.init()
 
 def tela_inicio(screen):
@@ -337,6 +338,15 @@ def main():
 
             text_energeticos = font.render(f"Energéticos consumidos: {jogador.tracker.fruitinhas}", True, C.WHITE)
             screen.blit(text_energeticos, (x, 140))
+
+            if jogador.tracker.powerup_ativo:
+                powerup_time_left = max(0, 10 - int(time.time() - jogador.tracker.tempo_inicio_powerup))
+                text_powerup = font.render(f"Invencivel! {powerup_time_left}s", True, C.YELLOW)
+                screen.blit(text_powerup, (x,200))
+            if jogador.tracker.boost_aitvo:
+                boost_time_left = max(0, 5 - int(time.time() - jogador.tracker.tempo_inicio_boost))
+                text_boost = font.render(f"Energizado! {boost_time_left}s", True, C.DARK_GREEN)
+                screen.blit(text_boost, (x,240))
 
             # Verifica se o jogador está vivo
             game_over = not jogador.alive

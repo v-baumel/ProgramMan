@@ -4,7 +4,8 @@ import Constantes as C
 
 class SistemaVidas:
 
-    def __init__(self):
+    def __init__(self, player):
+        self.player = player
         self.vidas = 3
         self.bolinhas_coletadas = 0
         self.fruitinhas =0
@@ -12,7 +13,10 @@ class SistemaVidas:
         self.fantasmas_comidos = 0
         self.powerup_ativo = False
         self.tempo_inicio_powerup = 0
-        self.duracao_powerup = 20 #power up vai durar 20 seg
+        self.duracao_powerup = 10 #power up vai durar 20 seg
+        self.boost_aitvo = False
+        self.tempo_inicio_boost = 0
+        self.duracao_boost = 5
         self.game_over = False
         self.invulneravel = False
         self.temporizador_invulneravel = 0
@@ -20,18 +24,34 @@ class SistemaVidas:
     
     def coletar_bolinha(self):
         self.bolinhas_coletadas += 1
-        C.text_teclas = f"Teclas apertadas: {self.bolinhas_coletadas}"
         return 
     
     def coletar_power_up(self):
         self.powerups_coletados +=1 
-        C.text_monitores = f"Monitores chamados: {self.powerups_coletados}"
         return
     
     def colect_fruits(self):
         self.fruitinhas +=1
-        C.text_energeticos = f"Energéticos consumidos: {self.fruitinhas}"
         return
+
+    def ativar_boost(self):
+        if not self.boost_aitvo:
+            self.player.speed += 1
+        self.boost_aitvo = True
+        self.tempo_inicio_boost = time.time()
+
+    def atualizar_boost(self):
+        if not self.boost_aitvo:
+            return None
+        tempo_decorrido = time.time() - self.tempo_inicio_boost
+        tempo_restante = self.duracao_boost - tempo_decorrido #atualizar o status 
+    
+        if tempo_restante <= 0:
+            self.boost_aitvo = False
+            self.player.speed -= 1
+            return "boost_fim" #acabou o tempo
+        
+        return "boost_ativo"
 
     def checar_ativacao_power_up(self):
         if self.vidas >= 8 and not self.powerup_ativo:
@@ -42,7 +62,6 @@ class SistemaVidas:
     def ativar_power_up(self):
         self.powerup_ativo = True
         self.tempo_inicio_powerup = time.time()
-        self.fantasmas_comidos = 0
     
     def atualizar_power_up(self):
         if not self.powerup_ativo:
@@ -51,7 +70,8 @@ class SistemaVidas:
         tempo_restante = self.duracao_powerup - tempo_decorrido #atualizar o status 
     
         if tempo_restante <= 0:
-            self.desativar_powerup()
+            #self.desativar_powerup()
+            self.powerup_ativo = False
             return "powerup_fim" #acabou o tempo
         
         #ficar piscando nos ulitmos 5 segundos

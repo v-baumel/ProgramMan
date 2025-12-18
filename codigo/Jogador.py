@@ -33,7 +33,7 @@ class Jogador(Personagem.Personagem):
         self.speed = 3
         self.anim = AnimationSystem()
         self.facing = "baixo"
-        self.tracker = SistemaVidas()
+        self.tracker = SistemaVidas(self)
         self.alive = True
         
     def handle_input(self):
@@ -65,13 +65,14 @@ class Jogador(Personagem.Personagem):
         if power_hit:
             for pp in power_hit:
                 pp.kill()
-                #self.tracker.ativar_power_up()
+                self.tracker.ativar_power_up()
                 self.tracker.coletar_power_up()
         
         fruits_hit = pygame.sprite.spritecollide(self,fruits,False)
         if fruits_hit:
             for fruits_hited in fruits_hit:
                 fruits_hited.kill()
+                self.tracker.ativar_boost()
                 self.tracker.colect_fruits()
         enemies_hit = pygame.sprite.spritecollide(self, self.mapa.ghosts, False)
         if enemies_hit:
@@ -127,5 +128,6 @@ class Jogador(Personagem.Personagem):
 
         self.image = self.animations[self.facing][self.frame_index]
 
-
+        self.tracker.atualizar_power_up()
+        self.tracker.atualizar_boost()
         self.objects_colision()

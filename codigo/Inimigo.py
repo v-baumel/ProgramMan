@@ -9,10 +9,11 @@ class Inimigo(Personagem):
     def __init__(self, x, y, mapa, image_path):
         super().__init__(x,y,mapa)
         self.spawn = (x,y)
+        self.speed = 3
         self.image = pygame.image.load(image_path).convert_alpha()
         self.image = pygame.transform.scale(
             self.image,
-            (C.TILE_SIZE, C.TILE_SIZE)
+            (C.TILE_SIZE-2, C.TILE_SIZE-2)
         )
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
@@ -50,7 +51,7 @@ class Inimigo(Personagem):
 
             scored.sort(key=lambda x: x[0]) # organizar por distancia
 
-            if len(scored) > 1 and random.random() < 0.45: # 45% de chance de escolher um caminho aleatório entre os piores
+            if len(scored) > 1 and random.random() < 0.4: # 40% de chance de escolher um caminho aleatório entre os piores
                 self.direction = random.choice([d for _, d in scored[1:]])
             else:
                 self.direction = scored[0][1]
