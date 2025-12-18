@@ -304,16 +304,16 @@ def main():
 
         game_over = False
         venceu = False
+        sair_jogo = False  # Nova flag para controlar saída
         
-        while not game_over:
+        while not game_over and not sair_jogo:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        game_over = True
-                        jogar_novamente = False
+                        sair_jogo = True  # Marca para sair sem mostrar game over
 
             jogador.handle_input()
             jogador.update(1 / C.FPS)
@@ -343,20 +343,24 @@ def main():
             
             # Verifica vitória
             if len(mapa.get_pellets()) == 0:
+                print("VITÓRIA! Todas as teclas coletadas!")  # Debug
                 venceu = True
                 game_over = True
 
             pygame.display.flip()
             clock.tick(C.FPS)
         
-        # Mostra tela de game over
-        if game_over and jogar_novamente:
+        # Mostra tela de game over apenas se não for ESC
+        if game_over and not sair_jogo:
             stats = {
                 'teclas': jogador.tracker.bolinhas_coletadas,
                 'monitores': jogador.tracker.powerups_coletados,
                 'energeticos': jogador.tracker.fruitinhas
             }
             jogar_novamente = tela_game_over(screen, stats, venceu)
+        else:
+            # Se apertou ESC, sai do loop
+            jogar_novamente = False
     
     pygame.quit()
 
