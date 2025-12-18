@@ -9,11 +9,32 @@ from animacoes_jogo import AnimationSystem
 class Jogador(Personagem.Personagem):
     def __init__(self, x, y, mapa):
         super().__init__(x, y, mapa)
+
+        self.animations = {
+            "cima": [pygame.image.load(p).convert_alpha() for p in C.upAnim],
+            "baixo": [pygame.image.load(p).convert_alpha() for p in C.downAnim],
+            "esquerda": [pygame.image.load(p).convert_alpha() for p in C.leftAnim],
+            "direita": [pygame.image.load(p).convert_alpha() for p in C.rightAnim],
+        }
+
+        for key in self.animations:
+            self.animations[key] = [
+                pygame.transform.scale(img, (C.TILE_SIZE-2, C.TILE_SIZE-2))
+                for img in self.animations[key]
+            ]
+
+        self.frame_index = 0
+        self.frame_counter = 0
+        self.frame_delay = 8  # troca a cada 8 frames (~7.5 animações/s)
+
+        self.image = self.animations["baixo"][0]
+        self.rect = self.image.get_rect(topleft=(x, y))
+
         self.speed = 3
-        self.image.fill(C.YELLOW)
         self.anim = AnimationSystem()
         self.facing = "baixo"
         self.tracker = SistemaVidas()
+        self.alive = True
         
     def handle_input(self):
         keys = pygame.key.get_pressed()
@@ -54,25 +75,16 @@ class Jogador(Personagem.Personagem):
                 self.tracker.colect_fruits()
         enemies_hit = pygame.sprite.spritecollide(self, self.mapa.ghosts, False)
         if enemies_hit:
-            exit()
+            for enemy in enemies_hit:
+                if self.tracker.powerup_ativo:
+                    enemy.rect.topleft = enemy.spawn
+                    self.tracker.fantasmas_comidos += 1
+                else:
+                    self.alive = False
 
     def draw(self, surface):
-        self.anim.update()
-        size = max(1, int(C.TILE_SIZE // 2 - 2))
-        x, y = self.rect.center
-        facing = ""
-        dx,dy = self.direction
-        if dx < 0:
-            facing = "esquerda"
-        elif dx > 0:
-            facing = "direita"
-        elif dy < 0:
-            facing = "cima"
-        elif dy > 0:
-            facing = "baixo"
-        else:
-            facing = "direita"
-        self.anim.desenhar_estudante_sem_poder(surface, x, y, facing, size)
+        surface.blit(self.image, self.rect)
+
 
     def update(self, dt):
         if self.direction != (0, 0):
@@ -103,6 +115,17 @@ class Jogador(Personagem.Personagem):
             hit_list = pygame.sprite.spritecollide(self, walls, False)
             if hit_list:
                 self.rect.topleft = old_pos
+        
+        
+        if self.direction != (0, 0):
+            self.frame_counter += 1
+            if self.frame_counter >= self.frame_delay:
+                self.frame_counter = 0
+                self.frame_index = (self.frame_index + 1) % 2
+        else:
+            self.frame_index = 0
+
+        self.image = self.animations[self.facing][self.frame_index]
 
 
         self.objects_colision()

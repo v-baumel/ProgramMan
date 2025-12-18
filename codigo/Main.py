@@ -263,6 +263,7 @@ def tela_game_over(screen, stats, venceu=False):
 
 
 def main():
+    DARK_BG = (25, 25, 35) # cor do fundo
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     import Constantes as C
     C.screen = screen
@@ -281,7 +282,7 @@ def main():
     jogar_novamente = True
     while jogar_novamente:
         clock = pygame.time.Clock()
-        font = pygame.font.SysFont('Arial', 40)
+        font = pygame.font.SysFont('Courier New', 25)
 
         map_width = C.MAP_X * C.TILE_SIZE
         map_height = C.MAP_Y * C.TILE_SIZE
@@ -294,9 +295,12 @@ def main():
         inimigos = pygame.sprite.Group()
         mapa.ghosts = inimigos
         
+        counter = 0
+        n_ghosts = len(mapa.ghost_starts)
         for gx, gy in mapa.ghost_starts:
-            inimigo = Inimigo.Inimigo(gx, gy, mapa)
+            inimigo = Inimigo.Inimigo(gx, gy, mapa, C.GHOST_IMAGES[counter])
             inimigos.add(inimigo)
+            counter = (counter+1)%n_ghosts
 
         game_over = False
         venceu = False
@@ -316,7 +320,7 @@ def main():
             for inimigo in inimigos: 
                 inimigo.update(1 / C.FPS)
 
-            screen.fill(C.BLACK)
+            screen.fill(DARK_BG)
             mapa.get_walls().draw(screen)
             mapa.get_pellets().draw(screen)
             mapa.get_upgrade().draw(screen)
@@ -334,12 +338,8 @@ def main():
             text_energeticos = font.render(f"Energéticos consumidos: {jogador.tracker.fruitinhas}", True, C.WHITE)
             screen.blit(text_energeticos, (x, 140))
 
-            # Verifica colisão com inimigos
-            if hasattr(jogador, 'rect'):
-                for inimigo in inimigos:
-                    if hasattr(inimigo, 'rect') and jogador.rect.colliderect(inimigo.rect):
-                        if not hasattr(jogador, 'powered') or not jogador.powered:
-                            game_over = True
+            # Verifica se o jogador está vivo
+            game_over = not jogador.alive
             
             # Verifica vitória
             if len(mapa.get_pellets()) == 0:

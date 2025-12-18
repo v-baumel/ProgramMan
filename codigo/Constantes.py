@@ -13,8 +13,15 @@ MAP_X = 31
 MAP_Y = 28
 TILE_SIZE = (Y_MAX*0.9)// MAP_Y
 
+GHOST_IMAGES = ["imagens/python.png","imagens/java.png","imagens/lua.png","imagens/c.png"]
+
+upAnim = ["imagens/tras1.png", "imagens/tras2.png"]
+downAnim = ["imagens/frente1.png", "imagens/frente2.png"]
+leftAnim = ["imagens/esquerda1.png", "imagens/esquerda2.png"]
+rightAnim = ["imagens/direita1.png", "imagens/direita2.png"]
+
 WALL_IMAGE = pygame.transform.scale(
-    pygame.image.load("imagens/parede.jpg").convert_alpha(),
+    pygame.image.load("imagens/parede3.png").convert_alpha(),
     (TILE_SIZE, TILE_SIZE)
 )
 

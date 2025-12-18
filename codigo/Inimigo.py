@@ -6,10 +6,16 @@ import random
 directions = ((1,0), (-1,0), (0,1), (0,-1))
 
 class Inimigo(Personagem):
-    def __init__(self, x, y, mapa):
-        super().__init__(x, y, mapa)
-        self.speed = 3
-        self.image.fill(C.RED) 
+    def __init__(self, x, y, mapa, image_path):
+        super().__init__(x,y,mapa)
+        self.spawn = (x,y)
+        self.image = pygame.image.load(image_path).convert_alpha()
+        self.image = pygame.transform.scale(
+            self.image,
+            (C.TILE_SIZE, C.TILE_SIZE)
+        )
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
 
     def update(self, dt):
         #estratégia de perseguição simples
@@ -21,7 +27,7 @@ class Inimigo(Personagem):
             hit_wall = pygame.sprite.spritecollide(self, self.mapa.get_walls(), False)
             self.rect.x -= d[0] * self.speed
             self.rect.y -= d[1] * self.speed
-            return not hit_wall
+            return not hit_wall 
 
         player = self.mapa.player
         opposite_dir = (-self.direction[0], -self.direction[1])
@@ -44,7 +50,7 @@ class Inimigo(Personagem):
 
             scored.sort(key=lambda x: x[0]) # organizar por distancia
 
-            if len(scored) > 1 and random.random() < 0.5: # 50% de chance de escolher um caminho aleatório entre os piores
+            if len(scored) > 1 and random.random() < 0.45: # 45% de chance de escolher um caminho aleatório entre os piores
                 self.direction = random.choice([d for _, d in scored[1:]])
             else:
                 self.direction = scored[0][1]

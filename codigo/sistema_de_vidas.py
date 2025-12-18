@@ -5,7 +5,6 @@ import Constantes as C
 class SistemaVidas:
 
     def __init__(self):
-        print("iniciando sistema de vidas")
         self.vidas = 3
         self.bolinhas_coletadas = 0
         self.fruitinhas =0

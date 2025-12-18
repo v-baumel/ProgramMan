@@ -13,44 +13,42 @@ class Wall(pygame.sprite.Sprite):
 class Pellet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        radius = C.TILE_SIZE // 4
-        size = radius * 2
-        self.image = pygame.Surface((C.TILE_SIZE, C.TILE_SIZE), pygame.SRCALPHA)
-        center = self.image.get_rect().center
-        pygame.draw.circle(
+        self.image = pygame.image.load("imagens/tecla.png").convert_alpha()
+        self.image = pygame.transform.scale(
             self.image,
-            C.DARK_GREEN,
-            center,
-            radius
+            (C.TILE_SIZE // 2, C.TILE_SIZE // 2)
         )
         self.rect = self.image.get_rect()
-        self.rect.center = (x + TILE_SIZE // 2, y + TILE_SIZE // 2)
+        self.rect.center = (
+            x + C.TILE_SIZE // 2,
+            y + C.TILE_SIZE // 2
+        )
 
         
-
-
 class Power_up(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        radius = C.TILE_SIZE // 4
-        size = radius * 2
-        self.image = pygame.Surface((C.TILE_SIZE, C.TILE_SIZE), pygame.SRCALPHA)
-        center = self.image.get_rect().center
-        pygame.draw.circle(
+        self.image = pygame.image.load("imagens/monitor.png").convert_alpha()
+        self.image = pygame.transform.scale(
             self.image,
-            C.BLUE,
-            center,
-            radius
+            (C.TILE_SIZE, C.TILE_SIZE)
         )
         self.rect = self.image.get_rect()
-        self.rect.center = (x + TILE_SIZE // 2, y + TILE_SIZE // 2)
+        self.rect.center = (
+            x + C.TILE_SIZE // 2,
+            y + C.TILE_SIZE // 2
+        )
 
 class Fruit(pygame.sprite.Sprite):
-    def __init__(self,x,y):
+    def __init__(self, x, y):
         super().__init__()
-        radius = C.TILE_SIZE//4
-        self.image = pygame.Surface((C.TILE_SIZE,C.TILE_SIZE),pygame.SRCALPHA)
-        center = self.image.get_rect().center
-        pygame.draw.circle(self.image,C.RED,center,radius)
+        self.image = pygame.image.load("imagens/energetico.png").convert_alpha()
+        self.image = pygame.transform.scale(
+            self.image,
+            (C.TILE_SIZE // 1.5, C.TILE_SIZE // 1.5)
+        )
         self.rect = self.image.get_rect()
-        self.rect.center = (x+TILE_SIZE // 2, y + TILE_SIZE // 2)
+        self.rect.center = (
+            x + C.TILE_SIZE // 2,
+            y + C.TILE_SIZE // 2
+        )
