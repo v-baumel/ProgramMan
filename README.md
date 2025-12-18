@@ -2,6 +2,11 @@
 
 > Um projeto de jogo arcade em **Python + Pygame**, inspirado em Pac-Man, com foco em arquitetura modular e fácil expansão.
 
+![Tela de inico](ss1.png)
+![Jogo](ss2.png)
+![Tela de game over](ss3.png)
+
+
 ## Sobre o projeto
 
 O **ProgramMan** é um protótipo de jogo 2D desenvolvido em Python utilizando a biblioteca **Pygame**. O objetivo do projeto é estudar e praticar conceitos de:
